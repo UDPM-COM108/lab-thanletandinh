@@ -38,7 +38,7 @@ int main() {
     // BÀI 4: Tính điểm trung bình các điểm toán, Lý, Hoá
     float toan, ly, hoa;
     float dtb;
-    printf("\nTính điểm trung bình các điểm toán, Lý, Hoá:\n");
+    printf("\nBÀI 4:Tính điểm trung bình các điểm toán, Lý, Hoá:\n");
 
     // Nhập điểm các môn
     printf("Nhập điểm môn Toán: ");
@@ -58,7 +58,7 @@ int main() {
     
     // BÀI 5: Tính chu vi, diện tích tam giác vuông
     float a, b, c, chuVi, dienTich;
-    printf("\nTính chu vi, diện tích tam giác vuông:\n");
+    printf("\nBÀI 5:Tính chu vi, diện tích tam giác vuông:\n");
     // Nhập độ dài hai cạnh góc vuông
     printf("Nhap do dai canh a: ");
     scanf("%f", &a);
