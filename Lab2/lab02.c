@@ -35,7 +35,7 @@ int main() {
     printf("Chu vi hình tròn là: %.2f\n", chuviHT);
     printf("Diện tích hình tròn là: %.2f\n", dientichHT);
     
-    // Tính điểm trung bình các điểm toán, Lý, Hoá
+    // BÀI 4: Tính điểm trung bình các điểm toán, Lý, Hoá
     float toan, ly, hoa;
     float dtb;
     printf("\nTính điểm trung bình các điểm toán, Lý, Hoá:\n");
@@ -56,7 +56,7 @@ int main() {
     // In kết quả
     printf("Diem trung binh 3 mon: %.2f\n", dtb);
     
-    // Tính chu vi, diện tích tam giác vuông
+    // BÀI 5: Tính chu vi, diện tích tam giác vuông
     float a, b, c, chuVi, dienTich;
     printf("\nTính chu vi, diện tích tam giác vuông:\n");
     // Nhập độ dài hai cạnh góc vuông
