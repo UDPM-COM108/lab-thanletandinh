@@ -51,7 +51,7 @@ int main() {
     scanf("%f", &hoa);
 
     // Tính điểm trung bình có hệ số
-    dtb = (toan * 3 + ly * 2 + hoa * 1) / (3 + 2 + 1);
+    dtb = (toan * 3 + ly * 2 + hoa * 1) / 3;
 
     // In kết quả
     printf("Diem trung binh 3 mon: %.2f\n", dtb);
