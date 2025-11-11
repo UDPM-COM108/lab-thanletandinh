@@ -34,6 +34,46 @@ int main() {
     float dientichHT = PI * r * r;
     printf("Chu vi hình tròn là: %.2f\n", chuviHT);
     printf("Diện tích hình tròn là: %.2f\n", dientichHT);
+    // Tính điểm trung bình các điểm toán, Lý, Hoá
+    float toan, ly, hoa;
+    float dtb;
 
+    // Nhập điểm các môn
+    printf("Nhập điểm môn Toán: ");
+    scanf("%f", &toan);
+
+    printf("Nhập điểm môn Lý: ");
+    scanf("%f", &ly);
+
+    printf("Nhập điểm môn Hoá: ");
+    scanf("%f", &hoa);
+
+    // Tính điểm trung bình có hệ số
+    dtb = (toan * 3 + ly * 2 + hoa * 1) / (3 + 2 + 1);
+
+    // In kết quả
+    printf("Diem trung binh 3 mon: %.2f\n", dtb);
+    // Tính chu vi, diện tích tam giác vuông
+    float a, b, c, chuVi, dienTich;
+
+    // Nhập độ dài hai cạnh góc vuông
+    printf("Nhap do dai canh a: ");
+    scanf("%f", &a);
+
+    printf("Nhap do dai canh b: ");
+    scanf("%f", &b);
+
+    // Tính cạnh huyền theo định lý Pythagoras
+    c = sqrt(a * a + b * b);
+
+    // Tính chu vi: P = a + b + c
+    chuVi = a + b + c;
+
+    // Tính diện tích: S = 1/2 * a * b
+    dienTich = 0.5 * a * b;
+
+    // In kết quả
+    printf("Chu vi tam giac vuong: %.2f\n", chuVi);
+    printf("Dien tich tam giac vuong: %.2f\n", dienTich);
     return 0;
 }
