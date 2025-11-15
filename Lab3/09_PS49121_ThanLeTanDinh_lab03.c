@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
+//Bài 1: XÂY DỰNG CHƯƠNG TRÌNH TÍNH HỌC LỰC
 void tinhHocLuc() {
     float dtb;
     printf("Nhập điểm học lực của bạn (0-10): ");
@@ -17,7 +19,7 @@ void tinhHocLuc() {
     else
         printf("Học Lực: Yếu\n");
 }
-
+//Bài 2: Giải phương trình bậc nhất
 void giaiPTBacNhat() {
     float a, b;
     printf("Nhập hệ số a: ");
@@ -35,7 +37,7 @@ void giaiPTBacNhat() {
         printf("Phương trình có một nghiệm: x = %.2f\n", x);
     }
 }
-
+//Bài 3: Giải Phương trình bậc 2
 void giaiPTBacHai() {
     float a, b, c;
     printf("Nhập hệ số a: ");
@@ -66,6 +68,31 @@ void giaiPTBacHai() {
         }
     }
 }
+//Bài 4: Tính tiền điện
+void tinhtiendien() {
+    int dien;
+    double tien = 0;
+    printf("Nhập số  điện tiêu thụ: ");
+    scanf("%d", &dien);
+    if (dien <= 50) {
+        tien = dien * 1678;
+    } else if (dien <= 100) {
+        tien = 50 * 1678 + (dien - 50) * 1734;
+    } else if (dien <= 200) {
+        tien = 50 * 1678 + 50 * 1734 + (dien - 100) * 2014;
+    } else if (dien <= 300) {
+        tien = 50 * 1678 + 50 * 1734 + 100 * 2014 + (dien - 200) * 2536;
+    } else if (dien <= 400) {
+        tien = 50 * 1678 + 50 * 1734 + 100 * 2014 + 100 * 2536 + (dien - 300) * 2834;
+    } else {
+        tien = 50 * 1678 + 50 * 1734 + 100 * 2014 + 100 * 2536 + 100 * 2834 + (dien - 400) * 2927;
+    }
+
+    printf("Số tiền cần phải đóng: %.4f dong\n", tien);
+
+    
+    
+}
 
 int main() {
     int choice;
@@ -74,7 +101,8 @@ int main() {
         printf("1. Tính Học Lực sinh viên\n");
         printf("2. Giải phương trình bậc nhất\n");
         printf("3. Giải phương trình bậc hai\n");
-        printf("4. Thoát\n");
+        printf("4. Tính tiền điện\n");
+        printf("0. Thoát\n");
         printf("Chọn chức năng (1-4): ");
         scanf("%d", &choice);
 
@@ -89,7 +117,11 @@ int main() {
                 giaiPTBacHai();
                 break;
             case 4:
-                printf("Tạm biệt!\n");
+                tinhtiendien();
+                break;
+            case 0:
+                printf("Thoát!\n");
+                exit(0);
                 break;
             default:
                 printf("Lựa chọn không hợp lệ. Vui lòng chọn lại.\n");
