@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// ===== BÀI 1: Hàm tìm min, max =====
+//BÀI 1: Hàm tìm min, max 
 int myMin(int a, int b, int c) {
     int min = a;
     if(b < min) min = b;
@@ -24,7 +24,7 @@ void bai1() {
     printf("Số nhỏ nhất: %d\n", myMin(x, y, z));
 }
 
-// ===== BÀI 2: Hàm kiểm tra năm nhuận =====
+//BÀI 2: Hàm kiểm tra năm nhuận
 int isLeapYear(int year) {
     if((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0))
         return 1;
@@ -41,7 +41,7 @@ void bai2() {
         printf("%d không phải năm nhuận.\n", year);
 }
 
-// ===== BÀI 3: Kiểm tra số chia hết cho 5 và 9 =====
+//BÀI 3: Kiểm tra số chia hết cho 5 và 9
 void bai3() {
     int n;
     printf("Nhập số trong khoảng [1,1000]: ");
@@ -56,14 +56,14 @@ void bai3() {
         printf("%d không chia hết cho 5 va 9.\n", n);
 }
 
-// ===== MAIN MENU =====
+//MAIN MENU
 int main() {
     int choice;
     do {
         printf("\n===== MENU =====\n");
-        printf("1. Tìm min, max trong 3 so\n");
+        printf("1. Tìm min, max trong 3 số\n");
         printf("2. Kiểm tra năm nhuận\n");
-        printf("3. Kiểm tra số chia hết cho 5 va 9\n");
+        printf("3. Kiểm tra số chia hết cho 5 và 9\n");
         printf("0. Thoát\n");
         printf("Nhập lựa chọn: ");
         scanf("%d", &choice);
