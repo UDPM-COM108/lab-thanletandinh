@@ -18,6 +18,7 @@ int main()
     }else if (diem >= 3 && diem <5)
         printf("Học Lực: Yếu\n");
     */
+    printf("Hết lab 03\n");
     printf("Việt Nam có bao nhiêu dân tộc anh em: \n");
     printf("a. 52\nb. 53\nc. 54\nd. 55\n");
     printf("Xin mời bạn chọn đáp án (a,b,c,d): \n");
