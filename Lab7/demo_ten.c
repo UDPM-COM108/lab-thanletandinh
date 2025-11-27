@@ -12,6 +12,7 @@ int main()
     printf("Nhập điểm: ");
     scanf("%d", &diem);
     getch();
+    
     printf("Họ và tên: %c\nTuổi: %d\nĐiểm: %d\n", ten, tuoi, diem);
     return 0;
 }
