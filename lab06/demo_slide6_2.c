@@ -117,5 +117,6 @@ int main()
     xuatmang2chieu(a,m,n);
     chia3het(a,m,n);
     chia5het(a,m,n);
+    
     return 0;
 }
