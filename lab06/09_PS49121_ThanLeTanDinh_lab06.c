@@ -48,7 +48,7 @@ void bai3(int a[], int n)
             }
         }
     }
-    printf("Sap xep theo thu tu giam dan trong mang: \n");
+    printf("Sắp xếp theo thứ tự giảm dần trong mảng: \n");
     for(i = 0; i < n; i++)
     {
         printf("%d ",a[i]);
@@ -65,7 +65,7 @@ int main() {
         printf("\n===== MENU =====\n");
         printf("1. Tính trung bình các số chia hết cho 3\n");
         printf("2. Tìm giá trị lớn nhất và nhỏ nhất trong mảng\n");
-        printf("3. Sap xep mang theo thu tu giam dan\n");
+        printf("3. Sắp xếp theo thứ tự giảm dần trong mảng\n");
         printf("0. Thoát\n");
         printf("Chọn chức năng: ");
         scanf("%d", &choice);
