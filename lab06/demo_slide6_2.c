@@ -20,7 +20,7 @@ void nhapmang2chieu(int a[M][N], int m, int n){
 }
 
 void xuatmang2chieu(int a[M][N], int m, int n){
-     printf("Xuat mang a[%d][%d]: \n",m,n);
+    printf("Xuat mang a[%d][%d]: \n",m,n);
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
