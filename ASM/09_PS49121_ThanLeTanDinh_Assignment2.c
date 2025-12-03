@@ -1,37 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// Các chức năng
-void kiemTraSoNguyen() {
-    float n;
-    printf("Nhập số bất kỳ: ");
-    scanf("%f", &n);
-    int can = (int)sqrt(n);
-    if (n == (int)n)
-        printf("%.2f là số nguyên.\n", n);
-    else
-        printf("%.2f không phải là số nguyên.\n", n);
-    if (can * can == n && n > 0)
-        printf("%.2f là số chính phương.\n", n);
-    else
-        printf("%.2f không phải là số chính phương.\n", n);
-    if (n < 2) {
-        printf("%d không phải là số nguyên tố.\n", n);
-        return;
-    }
-    int count = 0;
-    for (int i = 2; i <= (int)sqrt(n); i++) {
-        if ((int)n % i == 0) {
-            count++;
-            break;
-        }
-    }
+#include <stdbool.h>
 
-    if (count == 0) {
-        printf("%d là số nguyên tố.\n", n);
-    } else {
-        printf("%d không phải là số nguyên tố.\n", n);
+// Các chức năng
+
+bool laSoNguyenTo(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++)
+        if (n % i == 0) return false;
+    return true;
+}
+
+int laSoChinhPhuong(int n) {
+    int can = sqrt(n);
+    return can * can == n;
+}
+
+int ucln(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
     }
+    return a;
+}
+
+int bcnn(int a, int b) {
+    return (a * b) / ucln(a, b);
+}
+
+void kiemTraSoNguyen() {
+    int x;
+    printf("Nhập số bất kỳ: ");
+    scanf("%d", &x);
+    printf("Số %d là số nguyên.\n", x);
+    if (laSoNguyenTo(x))
+        printf("Số %d là số nguyên tố.\n", x);
+    else
+        printf("Số %d không phải là số nguyên tố.\n", x);
+
+    if (laSoChinhPhuong(x))
+        printf("Số %d là số chính phương.\n", x);
+    else
+        printf("Số %d không phải là số chính phương.\n", x);
+
+}
+
+void timUocVaBoi() {
+    int x, y;
+    printf("Nhập hai số nguyên: ");
+    scanf("%d %d", &x, &y);
+
+    printf("Ước chung lớn nhất của %d và %d là: %d\n", x, y, ucln(x, y));
+    printf("Bội chung nhỏ nhất của %d và %d là: %d\n", x, y, bcnn(x, y));
 }
 
 // ===== MAIN MENU =====
@@ -40,7 +62,7 @@ int main() {
     do {
         printf("\n===== MENU CHƯƠNG TRÌNH =====\n");
         printf("1. Kiểm tra số nguyên\n");
-        printf("2. Tìm ước số của số nguyên\n");
+        printf("2. Tìm ước, bội số chung của 2 số\n");
         printf("3. Tính tiền Karaoke\n");
         printf("4. Tính tiền điện\n");
         printf("5. Đổi tiền thành mệnh giá\n");
@@ -50,7 +72,7 @@ int main() {
         printf("9. Game FPOLY-LOTT\n");
         printf("10. Tính toán phân số\n");
         printf("0. Thoát chương trình\n");
-        printf("Chọn chức năng (0–10): ");
+        printf("Chọn chức năng (0-10): ");
         scanf("%d", &chon);
 
         switch (chon) {
@@ -58,7 +80,7 @@ int main() {
                 kiemTraSoNguyen(); 
                 break;
             case 2: 
-                //timUocSo(); 
+                timUocVaBoi(); 
                 break;
             case 3: 
                 //tinhTienKaraoke(); 
@@ -70,7 +92,7 @@ int main() {
                 //doiTien(); 
                 break;
             case 6: 
-                //tinhLaiSuatVay(); 
+                //tinhlaiSuatVay(); 
                 break;
             case 7: 
                 //tinhVayMuaXe(); 
@@ -82,7 +104,7 @@ int main() {
                 //gameFPOLY_LOTT(); 
                 break;
             case 10: 
-                //tinhPhanSo(); 
+                //tinhPhanSố(); 
                 break;
             case 0: 
                 printf("Đã thoát chương trình.\n"); 
