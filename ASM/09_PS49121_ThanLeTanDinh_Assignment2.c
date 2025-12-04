@@ -12,7 +12,7 @@ bool laSoNguyenTo(int n) {
     return true;
 }
 
-int laSoChinhPhuong(int n) {
+bool laSoChinhPhuong(int n) {
     int can = sqrt(n);
     return can * can == n;
 }
