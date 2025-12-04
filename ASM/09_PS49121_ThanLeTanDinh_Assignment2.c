@@ -30,6 +30,29 @@ int bcnn(int a, int b) {
     return (a * b) / ucln(a, b);
 }
 
+float tinhTien(int gioBD, int gioKT) {
+    if (gioBD < 12 || gioKT > 23 || gioBD >= gioKT) {
+        printf("Thời gian không hợp lệ. Quán chỉ hoạt động từ 12h đến 23h.\n");
+        return -1;
+    }
+
+    int soGio = gioKT - gioBD;
+    float tongTien = 0;
+
+    if (soGio <= 3) {
+        tongTien = soGio * 150000;
+    } else {
+        tongTien = 3 * 150000 + (soGio - 3) * 150000 * 0.7; // giảm 30% từ giờ thứ 4
+    }
+
+    if (gioBD >= 14 && gioBD <= 17) {
+        tongTien *= 0.9; // giảm thêm 10%
+    }
+
+    return tongTien;
+}
+
+
 void kiemTraSoNguyen() {
     int x;
     printf("Nhập số bất kỳ: ");
@@ -55,6 +78,19 @@ void timUocVaBoi() {
     printf("Ước chung lớn nhất của %d và %d là: %d\n", x, y, ucln(x, y));
     printf("Bội chung nhỏ nhất của %d và %d là: %d\n", x, y, bcnn(x, y));
 }
+
+void tinhTienKaraoke() {
+    int gioBD, gioKT;
+    printf("Nhập giờ bắt đầu (12-23): ");
+    scanf("%d", &gioBD);
+    printf("Nhập giờ kết thúc (12-23): ");
+    scanf("%d", &gioKT);
+
+    float tien = tinhTien(gioBD, gioKT);
+    if (tien != -1)
+        printf("Tổng tiền cần thanh toán: %.0f VND\n", tien);
+}
+
 
 // ===== MAIN MENU =====
 int main() {
@@ -83,7 +119,7 @@ int main() {
                 timUocVaBoi(); 
                 break;
             case 3: 
-                //tinhTienKaraoke(); 
+                tinhTienKaraoke(); 
                 break;
             case 4: 
                 //tinhTienDien(); 
