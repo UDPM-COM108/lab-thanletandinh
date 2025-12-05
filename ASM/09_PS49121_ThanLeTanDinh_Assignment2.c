@@ -91,6 +91,40 @@ void tinhTienKaraoke() {
         printf("Tổng tiền cần thanh toán: %.0f VND\n", tien);
 }
 
+void tinhTienDien() {
+    int kwh;
+    float tongTien = 0;
+    printf("Nhập số kWh điện sử dụng: ");
+    scanf("%d", &kwh);
+
+    int bac[] = {50, 50, 100, 100, 100};
+    float gia[] = {1678, 1734, 2014, 2536, 2834, 2927};
+
+    for (int i = 0; i < 6 && kwh > 0; i++) {
+        int dungLuong = (i < 5) ? bac[i] : kwh;
+        int suDung = (kwh > dungLuong) ? dungLuong : kwh;
+        tongTien += suDung * gia[i];
+        kwh -= suDung;
+    }
+
+    printf("Số tiền phải trả là: %.0f đồng\n", tongTien);
+}
+
+void doiTien() {
+    int soTien;
+    int menhGia[] = {500, 200, 100, 50, 20, 10, 5, 2, 1};
+    printf("Nhập số tiền cần đổi: ");
+    scanf("%d", &soTien);
+
+    printf("Kết quả đổi tiền:\n");
+    for (int i = 0; i < 9; i++) {
+        int soTo = soTien / menhGia[i];
+        if (soTo > 0) {
+            printf("%d tờ %d đồng\n", soTo, menhGia[i]);
+            soTien %= menhGia[i];
+        }
+    }
+}
 
 // ===== MAIN MENU =====
 int main() {
@@ -122,10 +156,10 @@ int main() {
                 tinhTienKaraoke(); 
                 break;
             case 4: 
-                //tinhTienDien(); 
+                tinhTienDien(); 
                 break;
             case 5: 
-                //doiTien(); 
+                doiTien(); 
                 break;
             case 6: 
                 //tinhlaiSuatVay(); 
