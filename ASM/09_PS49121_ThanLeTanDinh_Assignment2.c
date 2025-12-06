@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
+#include <math.h>6
 // Các chức năng
 
 bool laSoNguyenTo(int n) {
@@ -126,6 +126,32 @@ void doiTien() {
     }
 }
 
+void tinhlaiSuatVay(){
+    long tien_vay;
+    int ky_han = 12;
+    float lai_suat = 0.05;
+
+    printf("Nhap so tien muon vay (VND): ");
+    scanf("%ld", &tien_vay);
+
+    long goc_phai_tra = tien_vay / ky_han;
+    long so_tien_con_lai = tien_vay;
+
+    printf("\n%-7s %-15s %-15s %-20s %-20s\n",
+         "Kỳ hạn", "Lãi phải trả", "Gốc phải trả",
+          "Số tiền phải trả", "Số tiền còn lại");
+
+    for (int thang = 1; thang <= ky_han; thang++) {
+        long lai_phai_tra = (long)(so_tien_con_lai * lai_suat);
+        long tong_phai_tra = lai_phai_tra + goc_phai_tra;
+        so_tien_con_lai -= goc_phai_tra;
+
+        printf("%-7d %-15ld %-15ld %-20ld %-20ld\n",
+               thang, lai_phai_tra, goc_phai_tra, tong_phai_tra, so_tien_con_lai);
+    }
+
+}
+
 // ===== MAIN MENU =====
 int main() {
     int chon;
@@ -162,7 +188,7 @@ int main() {
                 doiTien(); 
                 break;
             case 6: 
-                //tinhlaiSuatVay(); 
+                tinhlaiSuatVay(); 
                 break;
             case 7: 
                 //tinhVayMuaXe(); 
