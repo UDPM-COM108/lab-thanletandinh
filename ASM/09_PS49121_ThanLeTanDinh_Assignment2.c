@@ -2,21 +2,41 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <math.h>6
+#include <math.h>
 // Các chức năng
 
+// Hàm chức năng 1
+// Kiểm tra số nguyên tố
 bool laSoNguyenTo(int n) {
     if (n < 2) return false;
     for (int i = 2; i <= sqrt(n); i++)
         if (n % i == 0) return false;
     return true;
 }
-
+// Kiểm tra số chính phương
 bool laSoChinhPhuong(int n) {
     int can = sqrt(n);
     return can * can == n;
 }
+void kiemTraSoNguyen() {
+    int x;
+    printf("Nhập số bất kỳ: ");
+    scanf("%d", &x);
+    printf("Số %d là số nguyên.\n", x);
+    if (laSoNguyenTo(x))
+        printf("Số %d là số nguyên tố.\n", x);
+    else
+        printf("Số %d không phải là số nguyên tố.\n", x);
 
+    if (laSoChinhPhuong(x))
+        printf("Số %d là số chính phương.\n", x);
+    else
+        printf("Số %d không phải là số chính phương.\n", x);
+
+}
+
+// Hàm chức năng 2
+// Ước số chung lớn nhất của 2 số
 int ucln(int a, int b) {
     while (b != 0) {
         int temp = b;
@@ -25,11 +45,21 @@ int ucln(int a, int b) {
     }
     return a;
 }
-
+// Bội số chung nhỏ nhất của 2 số
 int bcnn(int a, int b) {
     return (a * b) / ucln(a, b);
 }
+void timUocVaBoi() {
+    int x, y;
+    printf("Nhập hai số nguyên: ");
+    scanf("%d %d", &x, &y);
 
+    printf("Ước chung lớn nhất của %d và %d là: %d\n", x, y, ucln(x, y));
+    printf("Bội chung nhỏ nhất của %d và %d là: %d\n", x, y, bcnn(x, y));
+}
+
+// Hàm chức năng 3
+// Tính tiền quán karaoke
 float tinhTien(int gioBD, int gioKT) {
     if (gioBD < 12 || gioKT > 23 || gioBD >= gioKT) {
         printf("Thời gian không hợp lệ. Quán chỉ hoạt động từ 12h đến 23h.\n");
@@ -51,34 +81,6 @@ float tinhTien(int gioBD, int gioKT) {
 
     return tongTien;
 }
-
-
-void kiemTraSoNguyen() {
-    int x;
-    printf("Nhập số bất kỳ: ");
-    scanf("%d", &x);
-    printf("Số %d là số nguyên.\n", x);
-    if (laSoNguyenTo(x))
-        printf("Số %d là số nguyên tố.\n", x);
-    else
-        printf("Số %d không phải là số nguyên tố.\n", x);
-
-    if (laSoChinhPhuong(x))
-        printf("Số %d là số chính phương.\n", x);
-    else
-        printf("Số %d không phải là số chính phương.\n", x);
-
-}
-
-void timUocVaBoi() {
-    int x, y;
-    printf("Nhập hai số nguyên: ");
-    scanf("%d %d", &x, &y);
-
-    printf("Ước chung lớn nhất của %d và %d là: %d\n", x, y, ucln(x, y));
-    printf("Bội chung nhỏ nhất của %d và %d là: %d\n", x, y, bcnn(x, y));
-}
-
 void tinhTienKaraoke() {
     int gioBD, gioKT;
     printf("Nhập giờ bắt đầu (12-23): ");
@@ -90,7 +92,7 @@ void tinhTienKaraoke() {
     if (tien != -1)
         printf("Tổng tiền cần thanh toán: %.0f VND\n", tien);
 }
-
+// Hàm chức năng 4
 void tinhTienDien() {
     int kwh;
     float tongTien = 0;
@@ -109,7 +111,7 @@ void tinhTienDien() {
 
     printf("Số tiền phải trả là: %.0f đồng\n", tongTien);
 }
-
+// Hàm chức năng 5
 void doiTien() {
     int soTien;
     int menhGia[] = {500, 200, 100, 50, 20, 10, 5, 2, 1};
@@ -125,7 +127,7 @@ void doiTien() {
         }
     }
 }
-
+// Hàm chức năng 6
 void tinhlaiSuatVay(){
     long tien_vay;
     int ky_han = 12;
@@ -150,6 +152,136 @@ void tinhlaiSuatVay(){
                thang, lai_phai_tra, goc_phai_tra, tong_phai_tra, so_tien_con_lai);
     }
 
+}
+// Hàm chức năng 7
+void tinhVayMuaXe(){
+    // Thông số cố định
+    double soTienVayCoDinh = 500000000.0;   // 500 triệu VND
+    int thoiHanVayNam = 24;                 // 24 năm
+    double laiSuatNam = 0.15;              // 15%/năm
+
+    // Nhập phần trăm vay tối đa (ví dụ: 80 nghĩa là vay 80% giá trị xe)
+    double phanTramVay;
+    printf("Nhap phan tram vay toi da (vi du 80): ");
+    if (scanf("%lf", &phanTramVay) != 1) {
+        printf("Du lieu khong hop le.\n");
+    }
+
+    if (phanTramVay <= 0.0 || phanTramVay >= 100.0) {
+        printf("Phan tram vay phai trong khoang (0, 100).\n");
+    }
+
+    // Quy đổi ra tỷ lệ
+    double tyLeVay = phanTramVay / 100.0;
+
+    // Vì số tiền được vay cố định là 500 triệu, suy ra giá xe:
+    // 500 triệu = tyLeVay * giaXe  =>  giaXe = 500 triệu / tyLeVay
+    double giaXe = soTienVayCoDinh / tyLeVay;
+
+    // Số tiền trả lần đầu (đặt cọc / trả trước) = (1 - tyLeVay) * giá xe
+    double traTruoc = (1.0 - tyLeVay) * giaXe;
+
+    // Tính tiền trả góp hàng tháng theo công thức trả góp đều (amortization)
+    int soThang = thoiHanVayNam * 12;
+    double laiSuatThang = laiSuatNam / 12.0;
+
+    // P = L * r / (1 - (1 + r)^(-n))
+    double L = soTienVayCoDinh;
+    double r = laiSuatThang;
+    double n = (double)soThang;
+
+    // Tránh chia cho 0 nếu r ~ 0 (trường hợp lãi suất bằng 0)
+    double tienTraHangThang;
+    if (r == 0.0) {
+        tienTraHangThang = L / n;
+    } else {
+        double mauSo = 1.0 - pow(1.0 + r, -n);
+        tienTraHangThang = L * r / mauSo;
+    }
+
+    // Xuất kết quả
+    printf("\n--- Ket qua ---\n");
+    printf("Gia xe uoc tinh: %d VND\n", giaXe);
+    printf("So tien tra lan dau: %d VND\n", traTruoc);
+    printf("So tien tra hang thang: %d VND\n", tienTraHangThang);
+    printf("Thoi han: %d nam (%d thang), lai suat co dinh: %.2f%%/nam\n",
+           thoiHanVayNam, soThang, laiSuatNam * 100.0);
+}
+
+// Hàm chức năng 8
+// Định nghĩa struct SinhVien
+struct Sinhvien {
+    char hoTen[50];
+    float diemTB;
+    char hocluc[50];
+};
+// Hàm nhập thông tin sinh viên
+void nhapSinhVien(struct Sinhvien *sv) {
+    printf("Nhap ho ten: ");
+    getchar();
+    fgets(sv->hoTen, sizeof(sv->hoTen), stdin);
+    sv->hoTen[strcspn(sv->hoTen, "\n")] = '\0'; // bỏ ký tự xuống dòng
+
+    printf("Nhap diem trung binh: ");
+    scanf("%f", &sv->diemTB);
+}
+// Hàm in thông tin sinh viên
+void inSinhVien(struct Sinhvien sv) {
+    printf("\nHo ten: %s\nDiem TB: %.2f\nHoc luc: %s\n"
+        , sv.hoTen, sv.diemTB, sv.hocluc);
+}
+// Hàm sắp xếp sinh viên theo học lực (giảm dần điểm TB)
+void sapXepHocLuc(struct Sinhvien ds[100], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (ds[i].diemTB < ds[j].diemTB) {
+                struct Sinhvien temp = ds[i];
+                ds[i] = ds[j];
+                ds[j] = temp;
+            }
+        }
+    }
+}
+void phanloaihocluc(struct Sinhvien ds[100], int n){
+    for(int i = 0; i < n; i++)
+    {
+        if (ds[i].diemTB >= 9 && ds[i].diemTB <10){
+            strcpy(ds[i].hocluc, "Xuất Sắc");
+        }else if (ds[i].diemTB >= 8 && ds[i].diemTB < 9){
+            strcpy(ds[i].hocluc, "Giỏi");
+        }else if (ds[i].diemTB >= 7 && ds[i].diemTB <8){
+            strcpy(ds[i].hocluc, "Khá");
+        }else if (ds[i].diemTB >= 5 && ds[i].diemTB <7){
+            strcpy(ds[i].hocluc, "Trung Bình");
+        }else if (ds[i].diemTB > 0 && ds[i].diemTB <5){
+            strcpy(ds[i].hocluc, "Yếu");
+        }else
+            printf("Điểm trung bình không hợp lệ: (0-10)\n");
+           
+    }
+    
+}
+
+// Hàm phân loại học lực và sắp xếp giảm dần
+void sapXepSinhVien(){
+    int n;
+    struct Sinhvien ds[100];
+
+    printf("Nhap so luong sinh vien: ");
+    scanf("%d", &n);
+    getchar(); // loại bỏ ký tự Enter còn lại
+
+    for (int i = 0; i < n; i++) {
+        printf("\nNhap thong tin sinh vien thu %d:\n", i + 1);
+        nhapSinhVien(&ds[i]);
+    }
+    phanloaihocluc(ds,n);
+    sapXepHocLuc(ds,n);
+    for (int i = 0; i < n; i++) {
+        inSinhVien(ds[i]);
+    }
+
+    
 }
 
 // ===== MAIN MENU =====
@@ -191,10 +323,10 @@ int main() {
                 tinhlaiSuatVay(); 
                 break;
             case 7: 
-                //tinhVayMuaXe(); 
+                tinhVayMuaXe(); 
                 break;
             case 8: 
-                //sapXepSinhVien(); 
+                sapXepSinhVien(); 
                 break;
             case 9: 
                 //gameFPOLY_LOTT(); 
