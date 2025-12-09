@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
+#include <time.h>
 // Các chức năng
 
 // Hàm chức năng 1
@@ -128,69 +129,53 @@ void tinhlaiSuatVay(){
     long tien_vay;
     int ky_han = 12;
     float lai_suat = 0.05;
-
-    printf("Nhap so tien muon vay (VND): ");
+    // Nhập số tiền muốn vay
+    printf("Nhập số tiền muốn vay (VND): ");
     scanf("%ld", &tien_vay);
-
+    // Tiền gốc phải trả = tiền vay / kỳ hạn (12 tháng)
     long goc_phai_tra = tien_vay / ky_han;
     long so_tien_con_lai = tien_vay;
-
-    printf("\n%-7s %-15s %-15s %-20s %-20s\n",
-         "Kỳ hạn", "Lãi phải trả", "Gốc phải trả",
-          "Số tiền phải trả", "Số tiền còn lại");
-
+    printf("\n%-7s %-18s %-18s %-25s %-25s\n",
+         "Kỳ hạn", "|Lãi phải trả", "|Gốc phải trả",
+          "|Số tiền phải trả", "|Số tiền còn lại");
     for (int thang = 1; thang <= ky_han; thang++) {
+        // Tiền lãi = số tiền còn lại * lãi suất
+        // Tổng phải trả = Tiền lãi + Tiền gốc phải trả 
         long lai_phai_tra = (long)(so_tien_con_lai * lai_suat);
         long tong_phai_tra = lai_phai_tra + goc_phai_tra;
         so_tien_con_lai -= goc_phai_tra;
-
-        printf("%-7d %-15ld %-15ld %-20ld %-20ld\n",
+        printf("%-7d %-13ld %-13ld %-13ld %-50ld\n",
                thang, lai_phai_tra, goc_phai_tra, tong_phai_tra, so_tien_con_lai);
     }
 }
 // Hàm chức năng 7
 // Tính tiền vay mua xe
 void tinhVayMuaXe(){
-    // Thông số cố định
-    double soTienVayCoDinh = 500000000.0;   // 500 triệu VND
-    int thoiHanVayNam = 24;                 // 24 năm
-    double laiSuatNam = 0.15;              // 15%/năm
-    // Nhập phần trăm vay tối đa (ví dụ: 80 nghĩa là vay 80% giá trị xe)
-    double phanTramVay;
-    printf("Nhập phần trăm vay tối đa (ví dụ 80%): ");
-    if (scanf("%lf", &phanTramVay) != 1)
-        printf("Dữ liệu không hợp lệ.\n");
-    if (phanTramVay <= 0.0 || phanTramVay >= 100.0)
-        printf("Phần trăm vay phải trong khoảng (0%-100%).\n");
-    // Quy đổi ra tỷ lệ
-    double tyLeVay = phanTramVay / 100.0;
-    // Vì số tiền được vay cố định là 500 triệu, suy ra giá xe:
-    // 500 triệu = tyLeVay * giaXe  =>  giaXe = 500 triệu / tyLeVay
-    double giaXe = soTienVayCoDinh / tyLeVay;
-    // Số tiền trả lần đầu (đặt cọc / trả trước) = (1 - tyLeVay) * giá xe
-    double traTruoc = (1.0 - tyLeVay) * giaXe;
-    // Tính tiền trả góp hàng tháng theo công thức trả góp đều (amortization)
-    int soThang = thoiHanVayNam * 12;
-    double laiSuatThang = laiSuatNam / 12.0;
-    // P = L * r / (1 - (1 + r)^(-n))
-    double L = soTienVayCoDinh;
-    double r = laiSuatThang;
-    double n = (double)soThang;
-    // Tránh chia cho 0 nếu r ~ 0 (trường hợp lãi suất bằng 0)
-    double tienTraHangThang;
-    if (r == 0.0) {
-        tienTraHangThang = L / n;
-    } else {
-        double mauSo = 1.0 - pow(1.0 + r, -n);
-        tienTraHangThang = L * r / mauSo;
+    float ptVay, giaXe = 500000000, laiNam = 0.15;
+    int nam = 24;
+    int soThang = nam * 12; // tổng số tháng
+    printf("Nhập phần trăm vay (VD: 80): ");
+    scanf("%f", &ptVay);
+    // Tính số tiền vay
+    // 500tr = Giá xe * tỷ lệ vay -> Giá xe = 500tr / tỷ lệ vay
+    float tienVay = giaXe * ptVay / 100;
+    // Số tiền trả trước lần đầu
+    float traTruoc = giaXe - tienVay;
+    printf("Trả trước: %.f VND\n", traTruoc);
+    // Gốc trả đều mỗi tháng
+    float gocThang = tienVay / soThang;
+    float laiThang = laiNam / 12; // lãi suất theo tháng
+    float soDuNo = tienVay;
+    printf("\n%-7s %-18s %-18s %-25s %-20s\n",
+           "Tháng", "|Lãi phải trả", "|Gốc phải trả",
+           "|Tổng phải trả", "|Số dư nợ còn lại");
+    for (int i = 1; i <= soThang; i++) {
+        float laiPhaiTra = soDuNo * laiThang;
+        float tongPhaiTra = gocThang + laiPhaiTra;
+        soDuNo -= gocThang;
+        printf("%-7d %-13.0f %-13.0f %-20.0f %-15.0f\n",
+               i, laiPhaiTra, gocThang, tongPhaiTra, soDuNo);
     }
-    // Xuất kết quả
-    printf("\n--- Kết quả ---\n");
-    printf("Giá xe ước tính: %d VND\n", giaXe);
-    printf("Số tiền trả lần đầu: %d VND\n", traTruoc);
-    printf("Số tiền trả hàng tháng: %d VND\n", tienTraHangThang);
-    printf("Thời hạn: %d năm (%d tháng), lãi suất cố định: %.2f%%/năm\n",
-           thoiHanVayNam, soThang, laiSuatNam * 100.0);
 }
 
 // Hàm chức năng 8
@@ -262,6 +247,101 @@ void sapXepSinhVien(){
         inSinhVien(ds[i]);
     }    
 }
+// Hàm chức năng 9
+// Xây dựng game FPOLY-LOTT
+void gameFPOLY_LOTT(){
+    int soThuong;
+    printf("Nhập số phần thưởng cần rút (tối đa 15): ");
+    scanf("%d", &soThuong);
+    if (soThuong < 1 || soThuong > 15) {
+        printf("Dữ liệu không hợp lệ.\n");
+        return;
+    }
+    // Khởi tạo seed để rand() sinh số khác nhau mỗi lần chạy
+    srand(time(NULL));
+    // Sinh số ngẫu nhiên từ 1 đến 15
+    int r = rand() % 15 + 1;
+    printf("Số bốc thăm là: %d\n", r);
+    printf("\nKết quả rút thưởng:\n");
+    if(soThuong == r)
+        printf("Chúc mừng bạn đã trúng thưởng.\n");
+    else
+        printf("Chúc bạn may mắn lần sau.\n");
+}
+// Hàm chức năng 10
+// Struct Phân số
+struct phanso
+{
+    int tu;
+    int mau;
+};
+// Hàm nhập phân số
+void nhapPhanso(struct phanso *ptu) {
+    int tu, mau;
+    printf("Nhập tử: ");
+    scanf("%d", &ptu->tu);
+    printf("Nhập mẫu: ");
+    scanf("%d", &ptu->mau);
+}
+// Các phép toán
+// Rút gọn
+struct phanso rutGon(struct phanso ptu) {
+    int UCLN = ucln(abs(ptu.tu), abs(ptu.mau));
+    ptu.tu /= UCLN;
+    ptu.mau /= UCLN;
+    if (ptu.mau < 0) {
+        ptu.tu = -ptu.tu;
+        ptu.mau = -ptu.mau;
+    }
+    return ptu;
+}
+//Tổng
+struct phanso cong(struct phanso a, struct phanso b) {
+    struct phanso kq;
+    kq.tu = a.tu * b.mau + b.tu * a.mau;
+    kq.mau = a.mau * b.mau;
+    return rutGon(kq);
+}
+//Hiệu
+struct phanso tru(struct phanso a,struct phanso b) {
+    struct phanso kq;
+    kq.tu = a.tu * b.mau - b.tu * a.mau;
+    kq.mau = a.mau * b.mau;
+    return rutGon(kq);
+}
+// Thương
+struct phanso nhan(struct phanso a,struct phanso b) {
+    struct phanso kq;
+    kq.tu = a.tu * b.tu;
+    kq.mau = a.mau * b.mau;
+    return rutGon(kq);
+}
+//Tích
+struct phanso chia(struct phanso a,struct phanso b) {
+    struct phanso kq;
+    kq.tu = a.tu * b.mau;
+    kq.mau = a.mau * b.tu;
+    return rutGon(kq);
+}
+// Tính tổng, hiệu, tích, thương của 2 phân số
+void tinhPhanSo(){
+    struct phanso a, b;
+    printf("Nhập phân số thứ nhất (tử mẫu): \n");
+    nhapPhanso(&a);
+    printf("Nhập phân số thứ hai (tử mẫu): \n");
+    nhapPhanso(&b);
+    if (a.mau == 0 || b.mau == 0)
+        printf("Phân số không hợp lệ (mẫu phải khác 0).\n");
+    struct phanso tong = cong(a, b);
+    struct phanso hieu = tru(a, b);
+    struct phanso tich = nhan(a, b);
+    struct phanso thuong = chia(a, b);
+    printf("\nKết quả:\n");
+    printf("Tổng: %d/%d\n", tong.tu, tong.mau);
+    printf("Hiệu: %d/%d\n", hieu.tu, hieu.mau);
+    printf("Tích: %d/%d\n", tich.tu, tich.mau);
+    printf("Thương: %d/%d\n", thuong.tu, thuong.mau);
+}
 
 // ===== MAIN MENU =====
 int main() {
@@ -308,10 +388,10 @@ int main() {
                 sapXepSinhVien(); 
                 break;
             case 9: 
-                //gameFPOLY_LOTT(); 
+                gameFPOLY_LOTT(); 
                 break;
             case 10: 
-                //tinhPhanSo(); 
+                tinhPhanSo(); 
                 break;
             case 0: 
                 printf("Đã thoát chương trình.\n"); 
